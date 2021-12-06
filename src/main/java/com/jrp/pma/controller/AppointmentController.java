@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.jrp.pma.model.Appointment;
+import com.jrp.pma.model.Dentist;
 import com.jrp.pma.service.AppointmentService;
+import com.jrp.pma.service.DentistService;
 
 @Controller
 @RequestMapping(value="/appointments")
@@ -23,6 +25,9 @@ public class AppointmentController {
 	
 	@Autowired
 	AppointmentService appointmentService;
+	
+	@Autowired
+	DentistService dentistService;
 	
 	// Make an appointment
 	@PostMapping
@@ -47,5 +52,11 @@ public class AppointmentController {
 	public ResponseEntity<List<Appointment>> getWeekly() {
 		List<Appointment> appointmentsWeekly = appointmentService.getWeekly();
 		return ResponseEntity.ok(appointmentsWeekly);
+	}
+	
+	@GetMapping("/dentists")
+	public ResponseEntity<List<Dentist>> getDentists() {
+		List<Dentist> dentists = dentistService.getAll();
+		return ResponseEntity.ok(dentists);
 	}
 }

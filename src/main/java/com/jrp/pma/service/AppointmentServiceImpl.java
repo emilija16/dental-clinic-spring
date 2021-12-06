@@ -47,15 +47,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public List<Appointment> getWeekly() {
-		LocalDate dateBefore6Days = LocalDate.now().minusDays(6);
-		System.out.println("Dan pre 6 dana:" + dateBefore6Days);
+		LocalDate dateAfter6Days = LocalDate.now().plusDays(6);
+		System.out.println("Dan za 6 dana:" + dateAfter6Days);
 		LocalDate now = LocalDate.now();
 		System.out.println("Danasnji: " + now);
 		List<Appointment> appointmentsWeekly = new ArrayList<>();
 		List<Appointment> appointments = appointmentRepository.findAll();
 		for(int i = 0; i < appointments.size(); i++) {
-			if(appointments.get(i).getDate().isAfter(dateBefore6Days) && (appointments.get(i).getDate().isBefore(now)
-					|| appointments.get(i).getDate().isEqual(now))) {
+			if((appointments.get(i).getDate().isAfter(now) || appointments.get(i).getDate().isEqual(now))
+				&& (appointments.get(i).getDate().isBefore(dateAfter6Days) || appointments.get(i).getDate().equals(dateAfter6Days))) {
 				appointmentsWeekly.add(appointments.get(i));
 				System.out.println("Ovo su datumi: " + appointmentsWeekly);
 			}
