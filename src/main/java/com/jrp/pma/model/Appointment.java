@@ -23,6 +23,7 @@ public class Appointment {
 	private String examinationType;
 	private boolean canceled;
 	private int duration;
+	private String email;
 	
 	public Long getId() {
 		return id;
@@ -81,10 +82,17 @@ public class Appointment {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public Appointment() {}
 	
 	public Appointment(Long id, String patient, String jmbg, String phone, LocalDate date, LocalTime time,
-			String examinationType, boolean canceled, int duration) {
+			String examinationType, boolean canceled, int duration, String email) {
 		super();
 		this.id = id;
 		this.patient = patient;
@@ -95,6 +103,7 @@ public class Appointment {
 		this.examinationType = examinationType;
 		this.canceled = canceled;
 		this.duration = duration;
+		this.email = email;
 	}
 	
 	public void cancel() {

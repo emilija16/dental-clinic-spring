@@ -18,4 +18,10 @@ public class DentistServiceImpl implements DentistService {
 		// TODO Auto-generated method stub
 		return dentistRepository.findAll();
 	}
+
+	@Override
+	public Dentist updateCancellationDeadline(Dentist dentist) {
+		dentist.setCancellationDeadline(dentist.getCancellationDeadline());
+		return dentistRepository.save(dentist);
+	}
 }

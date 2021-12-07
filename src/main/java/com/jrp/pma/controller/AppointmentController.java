@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.jrp.pma.model.Appointment;
 import com.jrp.pma.model.Dentist;
 import com.jrp.pma.service.AppointmentService;
@@ -58,5 +60,11 @@ public class AppointmentController {
 	public ResponseEntity<List<Dentist>> getDentists() {
 		List<Dentist> dentists = dentistService.getAll();
 		return ResponseEntity.ok(dentists);
+	}
+	
+	@PutMapping
+	public ResponseEntity<Dentist> edit(@RequestBody Dentist dentist) {
+		Dentist updated = dentistService.updateCancellationDeadline(dentist);
+		return ResponseEntity.ok(updated);
 	}
 }
