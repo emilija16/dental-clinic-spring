@@ -35,7 +35,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	
 	@Override
 	public List<Appointment> getAll() {
-		return appointmentRepository.findAll();
+		return appointmentRepository.findAllByCanceled(false);
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public Appointment getById(Long id) {
 		Optional<Appointment> appointment = appointmentRepository.findById(id);
 		if(!appointment.isPresent() || appointment.get().isCanceled()) {
-			System.out.println("");
+			throw new ResourceNotFoundException("Appointment with provided id doesn't exists");
 		}
 		return appointment.get();
 	}
@@ -88,12 +88,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 		LocalDate now = LocalDate.now();
 		System.out.println("Danasnji: " + now);
 		List<Appointment> appointmentsWeekly = new ArrayList<>();
-		List<Appointment> appointments = appointmentRepository.findAll();
+		List<Appointment> appointments = appointmentRepository.findAllByCanceled(false);
 		for(int i = 0; i < appointments.size(); i++) {
 			if((appointments.get(i).getDate().isAfter(now) || appointments.get(i).getDate().isEqual(now))
 				&& (appointments.get(i).getDate().isBefore(dateAfter6Days) || appointments.get(i).getDate().equals(dateAfter6Days))) {
 				appointmentsWeekly.add(appointments.get(i));
-				System.out.println("Ovo su datumi: " + appointmentsWeekly);
 			}
 		}
 		return appointmentsWeekly;
