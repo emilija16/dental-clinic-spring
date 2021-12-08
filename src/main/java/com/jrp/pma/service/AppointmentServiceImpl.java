@@ -75,7 +75,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public Appointment getById(Long id) {
 		Optional<Appointment> appointment = appointmentRepository.findById(id);
-		if(!appointment.isPresent() || appointment.get().isCanceled()) {
+		if(!appointment.isPresent()) {
 			throw new ResourceNotFoundException("Appointment with provided id doesn't exists");
 		}
 		return appointment.get();
